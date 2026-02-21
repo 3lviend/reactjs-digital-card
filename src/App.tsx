@@ -1,78 +1,66 @@
-import React, {useEffect, useState} from 'react';
-import ProfileSection from './components/ProfileSection/ProfileSection';
-import CardElement from './components/CardElement/CardElement';
-import SocialMediaSection from './components/SocialMedia/Section/SocialMediaSection';
-import Footer from './components/Footer/Footer';
-import config from './config/config.json';
+import React, { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { PowerSyncContext } from '@powersync/react';
+import { AuthProvider, useAuth } from './lib/AuthContext';
+import { powersync, setupPowerSync } from './lib/powersync';
+
+// Pages
+import LandingPage from './pages/LandingPage';
+import Login from './pages/Login';
+import Register from './pages/Register';
+
+// The old static App is now the PublicCard view (we'll refactor this later)
+import PublicCard from './pages/PublicCard';
+import Dashboard from './pages/Dashboard';
+
 import './App.css';
 
-const App = () => {
-  const [profileData, setProfileData] = useState({
-    profile: {
-      name: '', background: '', photo: '', description: '',
-    }, footer: {
-      copyright: {
-        text: '',
-      }, linkElements: [],
-    }, socialMediaElements: [], cardElements: [{
-      title: "", description: "", href: "", icon: ""
-    }],
-  });
+// Protected Route Wrapper
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  const { session, loading } = useAuth();
+  if (loading) return <div>Loading...</div>;
+  if (!session) return <Navigate to="/auth/login" />;
+  return children;
+};
 
-  useEffect(() => {
-    if (config.encodeProfileData) {
-      // Fetch the encoded profile data
-      fetch('data/b64ProfileData.json')
-        .then(response => response.text())
-        .then(encodedData => {
-          // Decode the base64 data
-          const uint8Array = new Uint8Array(atob(encodedData).split("").map(c => c.charCodeAt(0)));
-          const data = new TextDecoder('utf-8').decode(uint8Array);
-          setProfileData(JSON.parse(data));
-        })
-        .catch(error => {
-          console.error('Failed to load and decode profile data:', error);
-        });
-    } else {
-      // Import the profile data directly if not encoded
-      import('./data/profileData.json')
-        .then(() => {
-          setProfileData(profileData);
-        });
-    }
-  }, []);
+const AppRoutes = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/auth/login" element={<Login />} />
+      <Route path="/auth/register" element={<Register />} />
 
-  // Wait for profile data to be loaded and decoded
-  if (!profileData) {
-    return <div>Loading...</div>;
-  }
-
-  const {profile, footer} = profileData;
-  const socialMediaObjects = profileData.socialMediaElements.map(href => ({href}));
-
-  return (<div className="App">
-    {/* Content Section */}
-    <div className="ContentWrapper">
-      <ProfileSection
-        name={profile.name}
-        backgroundImage={profile.background}
-        profileImage={profile.photo}
-        description={profile.description}
+      {/* Protected routes */}
+      <Route
+        path="/dashboard/*"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
       />
 
-      {/* Social Media Section */}
-      <SocialMediaSection socialMediaElements={socialMediaObjects}/>
+      {/* Public Digital Card view */}
+      <Route path="/:digital_card_url" element={<PublicCard />} />
+    </Routes>
+  );
+};
 
-      {/* Card Elements Section */}
-      {profileData.cardElements.map((element, index) => (<CardElement key={index} {...element} />))}
-    </div>
+const App = () => {
+  useEffect(() => {
+    // Initialize PowerSync offline database connection
+    setupPowerSync();
+  }, []);
 
-    {/* Footer Section */}
-    <Footer
-      copyright={footer.copyright}
-      linkElements={footer.linkElements}
-    />
-  </div>);
+  return (
+    <AuthProvider>
+      <PowerSyncContext.Provider value={powersync}>
+        <div className="App">
+          <AppRoutes />
+        </div>
+      </PowerSyncContext.Provider>
+    </AuthProvider>
+  );
 };
 
 export default App;

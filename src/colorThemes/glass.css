@@ -1,0 +1,15 @@
+:root[data-theme='glass'],
+.glass-theme-wrapper {
+    --primary-color: rgba(255, 255, 255, 0.2);
+    --secondary-color: rgba(255, 255, 255, 0.1);
+    --text-color: #ffffff;
+    --background-color: #1e3c72;
+    --theme-background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    --border-color: rgba(255, 255, 255, 0.3);
+    --accent-color-1: rgba(255, 255, 255, 0.8);
+    --accent-color-2: rgba(255, 255, 255, 0.5);
+    --footer-text-color: #ffffff;
+    --footer-hover-color: #2a5298;
+    --footer-line-color: rgba(255, 255, 255, 0.3);
+    --footer-background-color: transparent;
+}

@@ -1,4 +1,5 @@
-:root {
+:root[data-theme='dark'],
+.dark-theme-wrapper {
     --primary-color: #007bff;
     --secondary-color: #343a40;
     --text-color: #f8f9fa;

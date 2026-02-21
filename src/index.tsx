@@ -2,11 +2,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import config from './config/config.json';
 import siteData from './data/siteData.json';
 import './index.css';
 import App from './App';
+
+// Import virtual module from vite-plugin-pwa to inject service worker automatically
+import 'virtual:pwa-register';
 
 function loadTheme() {
   let theme = config.theme;
@@ -57,6 +60,6 @@ setMetaTags();
 
 ReactDOM.render(<React.StrictMode>
   <Router>
-      <App/>
+    <App />
   </Router>
 </React.StrictMode>, document.getElementById('root'));

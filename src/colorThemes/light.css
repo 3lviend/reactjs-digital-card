@@ -1,4 +1,6 @@
-:root {
+:root[data-theme='light'],
+:root:not([data-theme]),
+.light-theme-wrapper {
     --primary-color: #6c757d;
     --secondary-color: #f0f0f0;
     --text-color: #212529;

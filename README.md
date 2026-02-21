@@ -1,117 +1,64 @@
-# My Digital Card
+# My Digital Card (Offline-First PowerSync Edition)
 
-My Digital Card is a modern, React-based application designed to create a personalized and interactive digital business
-card. This project makes it simple for professionals to share their contact information, social media profiles, and
-personal branding in a digital format that is accessible anywhere.
+> **Attribution Note:** This project is a heavily upgraded fork of the original [My Digital Card by weisser-dev](https://github.com/weisser-dev/my-digital-card). The original template provided a beautiful static JSON-based digital card. This fork evolves that concept into a fully dynamic, multi-tenant, offline-first application!
 
-### Live Preview
-[https://weisser-dev.github.io/my-digital-card/](https://weisser-dev.github.io/my-digital-card/)
+My Digital Card is a modern, React-based application designed to create personalized and interactive digital business cards. This upgraded version transforms the static template into a full SaaS-style application where users can create accounts, manage multiple active cards from a private dashboard, and rely on robust offline capabilities.
 
-![Mobile View](./screenshots/mobile.png)
+## Major New Features
 
-
-
-
-
-
-## Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Folder Structure](#folder-structure)
-- [Using Font Awesome Icons](#using-font-awesome-icons)
-- [Contributing](#contributing)
-- [License](#license)
-- [Forking and Deployment](#forking-and-deployment)
-- [Screenshots](#screenshots)
-
-## Features
-
-- **Profile Image**: Display a headshot or logo to represent yourself or your brand.
-- **Background Image**: Set a backdrop that captures your professional persona.
-- **Social Media Profiles**: Link out to your professional social media pages with ease.
-- **Customizable Elements**: Add custom card elements tailored to your business needs.
-- **Theme Support**: Switch between light and dark mode or apply a custom theme to match your style.
-- **Simple Configuration**: Update your digital card using a straightforward `config.json` file.
-- **Data Privacy**: Encode your personal data to keep it secure when your card is shared publicly.
+- **Offline-First PWA:** Powered by Vite PWA and Workbox, the entire app shell and routing logic work flawlessly without an internet connection.
+- **PowerSync + Local SQLite:** All dashboard data is gracefully stored directly on your device using WASM SQLite. When you are offline, you can still view and interact with your cards. When you reconnect, PowerSync automatically reconciles your data with the central Postgres database!
+- **Supabase Authentication:** Secure User Login and Registration using Supabase Auth.
+- **Dynamic User Dashboard:** A private workspace to dynamically create, edit, delete, and toggle visibility on up to 3 different digital cards.
+- **7 Beautiful Themes:** In addition to the original light and dark modes, choose from Minimalist, Glassmorphism, Corporate, Neon, and Gradient themes!
+- **QR Code Generation:** Instantly generate and download scannable QR Code PNGs for your specific digital cards to place on physical media.
+- **Dynamic SEO:** The app automatically generates proper metadata titles and descriptions specifically matching the profile you are viewing.
 
 ## Installation
 
-To get started with My Digital Card:
+To run this heavily upgraded stack locally, you will need a Supabase project and a PowerSync instance.
 
-1. Ensure you have [Git](https://git-scm.com/downloads) and [Node.js](https://nodejs.org/en/download/) installed.
-2. Clone the repository:
-   ```bash git clone https://github.com/weisser-dev/my-digital-card.git```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/weisser-dev/my-digital-card.git # Replace with your fork URL
+   cd my-digital-card
+   ```
 
-3. Navigate to the project directory:     `cd my-digital-card`
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-4. Install the necessary dependencies:    `npm install`
+3. Configure your Environment Variables:
+   Create a `.env` file at the root of the project with your database credentials:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   VITE_POWERSYNC_URL=your_powersync_instance_url
+   ```
 
-## Usage
+4. Database Setup:
+   Execute the provided `schema.sql` file in your Supabase SQL Editor, which sets up the `digital_cards` table and the necessary Row Level Security (RLS) policies for secure multi-tenant access.
 
-Begin by starting the development server to see your card in action: `npm start`
-
-This launches the card at `http://localhost:3000`. Before you do this, create a `profileData.json` based on the
-provided `template.json` to ensure all your information is displayed correctly.
-
-## Configuration
-
-The `config.json` file controls various aspects of your digital card:
-
-- **Themes**: Choose 'auto' for system preference, 'light' or 'dark' for fixed themes, or 'default' for a custom theme.
-- **SEO**: Enable or disable search engine indexing based on your visibility preferences.
-- **Encoding**: Opt to encode your profile data for an extra layer of privacy.
-
-Refer to the `config.json` file and update the settings as needed for your use case.
+5. Start the Vite Dev Server:
+   ```bash
+   npm run dev
+   ```
 
 ## Folder Structure
 
-Each part of the application is neatly contained within specific folders:
+- `src/`
+  - `components/`: Reusable UI pieces (Dashboard Modals, DigitalCardPreview, SocialMediaElement).
+  - `lib/`: The core infrastructure connecting Supabase Auth, PowerSync, and Drizzle ORM.
+  - `pages/`: The dynamic routes (`/login`, `/register`, `/dashboard`, `/:digital_card_url`).
+  - `colorThemes/`: The diverse CSS variable definitions for the 7 available themes.
+- `schema.sql`: The Supabase postgres schema and security policies.
 
-- `src/`: The heart of the React application.
-    - `components/`: Reusable UI pieces.
-    - `data/`: Home for `profileData.json`.
-    - `config/`: Where `config.json`  file live.
-    - `colorThemes/`: Different stylesheet options for theming.
-- `public/`: Houses static files like images and the main HTML file.
-- `build/`: The output directory for production-ready builds.
+## Contributing & License
 
-## Using Font Awesome Icons
+While this project is a robust fork, we highly encourage exploring the elegant origins of this repository over at [weisser-dev's github](https://github.com/weisser-dev/my-digital-card). 
 
-Font Awesome icons enhance the visual appeal of your card. Here's how to use them:
-
-1. Find the icon on [Font Awesome](https://fontawesome.com/icons).
-2. Copy the class name (e.g., `fa-github`).
-3. Insert it into `profileData.json` for the appropriate element.
-
-## Contributing
-
-I encourage contributions! To contribute:
-
-1. Fork the repo.
-2. Create a feature branch: `git checkout -b new-feature`
-3. Commit changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin new-feature`
-5. Submit a pull request.
-
-## License
-
-My Digital Card is under the MIT License.
-
-## Forking and Deployment
-
-Feel free to fork this project and make it your own. Here's how to deploy your version:
-
-1. Fill out `profileData.json` with your details.
-2. Customize images to avoid using the default ones, such as my dog's photo.
-3. Prepare your data for deployment with `npm run prebuild`.
-4. Commit the base64 encoded data file.
-5. Deploy to your preferred service, like GitHub Pages (Works out of the box, just enable Actions and give them the correct permissions: Actions -> General -> Workflow -> Read and write permissions ).
-6. Enable GH Pages -> Pages -> "Deploy from a branch" -> "gh-pages"
-Happy sharing of your professional digital business card!
-7. Pls also check, if you use a custom domain, that this is in the .env File as PUBLIC_URL
+Both the original project and this upgraded implementation are released under the MIT License.
 ## Screenshots
 
 ### Mobile View

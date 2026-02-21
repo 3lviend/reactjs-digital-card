@@ -1,7 +1,14 @@
+.PublicCard {
+    color: var(--text-color, #212529);
+    background: var(--theme-background, var(--background-color, #ffffff));
+    min-height: 100vh;
+}
+
 .ContentWrapper {
     max-width: 600px;
     margin: 0 auto;
     box-sizing: border-box;
+    padding: 20px;
 }
 
 .icon-element {
