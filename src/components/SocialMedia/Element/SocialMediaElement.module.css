@@ -23,7 +23,7 @@
     line-height: 50px;
     text-align: center;
     color: #FFF;
-    color: rgba(255, 255, 255, 0.8);
+    background-color: var(--primary-color, #6c757d);
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;

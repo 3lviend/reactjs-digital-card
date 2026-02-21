@@ -35,15 +35,9 @@
     margin-top: 10px;
 }
 
-p {
-    margin-top: 10px;
+.profileDescription {
+    margin-top: 15px;
+    margin-bottom: 30px;
     font-size: 18px;
-}
-
-@media (max-width: 600px) {
-    p {
-        padding: 0 10px;
-        text-align: center;
-        margin: 0 10px;
-    }
+    padding: 0 20px;
 }

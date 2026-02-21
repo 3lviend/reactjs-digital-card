@@ -1,0 +1,15 @@
+:root[data-theme='corporate'],
+.corporate-theme-wrapper {
+    --primary-color: #0c2340;
+    --secondary-color: #f0f4f8;
+    --text-color: #1a2a3a;
+    --background-color: #ffffff;
+    --theme-background: #ffffff;
+    --border-color: #cbd5e1;
+    --accent-color-1: #2563eb;
+    --accent-color-2: #3b82f6;
+    --footer-text-color: #ffffff;
+    --footer-hover-color: #3b82f6;
+    --footer-line-color: #0c2340;
+    --footer-background-color: #0c2340;
+}

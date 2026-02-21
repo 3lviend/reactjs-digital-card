@@ -1,0 +1,15 @@
+:root[data-theme='neon'],
+.neon-theme-wrapper {
+    --primary-color: #ff00ff;
+    --secondary-color: #111111;
+    --text-color: #00ffff;
+    --background-color: #050505;
+    --theme-background: #050505;
+    --border-color: #ff00ff;
+    --accent-color-1: #00ff00;
+    --accent-color-2: #ff00ff;
+    --footer-text-color: #00ffff;
+    --footer-hover-color: #ff00ff;
+    --footer-line-color: #333333;
+    --footer-background-color: #111111;
+}

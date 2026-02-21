@@ -1,0 +1,15 @@
+:root[data-theme='minimalist'],
+.minimalist-theme-wrapper {
+    --primary-color: #000000;
+    --secondary-color: #f4f4f4;
+    --text-color: #1a1a1a;
+    --background-color: #fafafa;
+    --theme-background: #fafafa;
+    --border-color: #e0e0e0;
+    --accent-color-1: #333333;
+    --accent-color-2: #666666;
+    --footer-text-color: #1a1a1a;
+    --footer-hover-color: #000000;
+    --footer-line-color: #e0e0e0;
+    --footer-background-color: #fafafa;
+}

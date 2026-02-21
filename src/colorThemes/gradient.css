@@ -1,0 +1,15 @@
+:root[data-theme='gradient'],
+.gradient-theme-wrapper {
+    --primary-color: rgba(255, 255, 255, 0.2);
+    --secondary-color: rgba(0, 0, 0, 0.1);
+    --text-color: #ffffff;
+    --background-color: #ff758c; /* Fallback for older browsers */
+    --theme-background: linear-gradient(135deg, #ff7eb3 0%, #ff758c 100%);
+    --border-color: rgba(255, 255, 255, 0.5);
+    --accent-color-1: rgba(255, 255, 255, 0.8);
+    --accent-color-2: rgba(255, 255, 255, 0.4);
+    --footer-text-color: #ffffff;
+    --footer-hover-color: rgba(255, 255, 255, 0.8);
+    --footer-line-color: rgba(255, 255, 255, 0.2);
+    --footer-background-color: transparent;
+}
